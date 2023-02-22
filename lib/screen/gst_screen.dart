@@ -214,8 +214,6 @@ class _GstState extends State<Gst> {
                         SizedBox(height: 10),
                         InkWell(
                           onTap: () {
-                            int modul = 0;
-                            int a = 0;
                             setState(() {
 
                               amount=amount.substring(0,amount.length);
