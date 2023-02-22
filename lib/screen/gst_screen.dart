@@ -9,9 +9,8 @@ class Gst extends StatefulWidget {
 
 class _GstState extends State<Gst> {
   //local
-
   //logical veriable
-  dynamic amount = 1;
+  dynamic amount = "";
   dynamic total_amount = 0;
   bool check = false;
   bool check2 = false;
@@ -56,6 +55,9 @@ class _GstState extends State<Gst> {
                               check3 = false;
                               check4 = false;
                               check5 = false;
+                              total_amount = double.parse(amount);
+                              total_amount =
+                                  (total_amount * 0.03) + total_amount;
                             });
                           },
                           child: percentage(3, check)),
@@ -67,6 +69,9 @@ class _GstState extends State<Gst> {
                               check3 = false;
                               check4 = false;
                               check5 = false;
+                              total_amount = double.parse(amount);
+                              total_amount =
+                                  (total_amount * 0.05) + total_amount;
                             });
                           },
                           child: percentage(5, check2)),
@@ -78,6 +83,9 @@ class _GstState extends State<Gst> {
                               check3 = true;
                               check4 = false;
                               check5 = false;
+                              total_amount = double.parse(amount);
+                              total_amount =
+                                  (total_amount * 0.12) + total_amount;
                             });
                           },
                           child: percentage(12, check3)),
@@ -89,6 +97,9 @@ class _GstState extends State<Gst> {
                               check3 = false;
                               check4 = true;
                               check5 = false;
+                              total_amount = double.parse(amount);
+                              total_amount =
+                                  (total_amount * 0.18) + total_amount;
                             });
                           },
                           child: percentage(18, check4)),
@@ -100,6 +111,9 @@ class _GstState extends State<Gst> {
                               check3 = false;
                               check4 = false;
                               check5 = true;
+                              total_amount = double.parse(amount);
+                              total_amount =
+                                  (total_amount * 0.28) + total_amount;
                             });
                           },
                           child: percentage(28, check5)),
@@ -149,48 +163,71 @@ class _GstState extends State<Gst> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    height: double.infinity,
-                    width: 400,
-                    color: Color(0x54B7B6B6),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: number(7, 8, 9),
-                        ),
-                        Expanded(
-                          child: number(4, 5, 6),
-                        ),
-                        Expanded(
-                          child: number(1, 2, 3),
-                        ),
-                        Expanded(
-                          child: number("00", 0, "."),
-                        ),
-                      ],
+                  Expanded(
+                    child: Container(
+                      height: double.infinity,
+                      width: 400,
+                      decoration: BoxDecoration(
+                          color: Color(0x54B7B6B6),
+                          border: Border.all(color: Colors.pink, width: 1)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                            child: number(7, 8, 9),
+                          ),
+                          Expanded(
+                            child: number(4, 5, 6),
+                          ),
+                          Expanded(
+                            child: number(1, 2, 3),
+                          ),
+                          Expanded(
+                            child: number("00", 0, "."),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
+                    padding: const EdgeInsets.only(right: 20.0,left: 20),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        button(
-                          Text(
-                            "Ac",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              amount = "";
+                              total_amount = 0;
+                            });
+                          },
+                          child: button(
+                            Text(
+                              "Ac",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                         SizedBox(height: 10),
-                        button(
-                          Icon(
-                            Icons.backspace,
-                            color: Colors.white,
-                            size: 20,
+                        InkWell(
+                          onTap: () {
+                            int modul = 0;
+                            int a = 0;
+                            setState(() {
+
+                              amount=amount.substring(0,amount.length);
+
+                            });
+                          },
+                          child: button(
+                            Icon(
+                              Icons.backspace,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
                         ),
                       ],
@@ -205,7 +242,7 @@ class _GstState extends State<Gst> {
     );
   }
 
-  Widget box(String data, num rs, String tag) {
+  Widget box(String data, dynamic rs, String tag) {
     return Container(
       height: 25,
       width: double.infinity,
@@ -285,14 +322,16 @@ class _GstState extends State<Gst> {
           child: InkWell(
             onTap: () {
               setState(() {
-                amount=number;
+                amount = amount + "$number";
               });
             },
             child: Container(
               height: 100,
               width: 100,
               alignment: Alignment.center,
-              color: Colors.white,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.pink, width: 1)),
               child: Text(
                 "$number",
                 style: TextStyle(
@@ -308,14 +347,16 @@ class _GstState extends State<Gst> {
           child: InkWell(
             onTap: () {
               setState(() {
-                amount=n1;
+                amount = amount + "$n1";
               });
             },
             child: Container(
               height: 100,
               width: 100,
               alignment: Alignment.center,
-              color: Colors.white,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: Colors.pink, width: 1)),
               child: Text(
                 "$n1",
                 style: TextStyle(
@@ -331,14 +372,16 @@ class _GstState extends State<Gst> {
           child: InkWell(
             onTap: () {
               setState(() {
-                amount=n2;
+                amount = amount + "$n2";
               });
             },
             child: Container(
               height: 100,
               width: 100,
               alignment: Alignment.center,
-              color: Colors.white,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 1, color: Colors.pink)),
               child: Text(
                 "$n2",
                 style: TextStyle(
